@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Nova Dynamic Notch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="notch" id="notch">
+    <div class="topbar" id="topbar" title="Click to pin or unpin">
+      <div class="brand">
+        <span class="logo">N</span>
+        <span>Nova</span>
+      </div>
+      <span class="clock" id="clock">--:--</span>
+    </div>
+
+    <div class="content">
+      <div class="tabs">
+        <button class="tab active" data-page="music">♫ Music</button>
+        <button class="tab" data-page="performance">▥ Performance</button>
+        <button class="tab" data-page="controls">⌘ Controls</button>
+      </div>
+
+      <!-- MUSIC -->
+      <section class="page active" id="music">
+        <div class="card">
+          <div class="card-title">Now Playing</div>
+
+          <div class="track">
+            <div class="album">♫</div>
+            <div class="track-info">
+              <div class="track-name" id="trackName">Your Music</div>
+              <div class="artist" id="artistName">Choose an audio file</div>
+              <div class="small muted" id="musicStatus">Ready to play</div>
+            </div>
+          </div>
+
+          <audio id="audio" preload="metadata"></audio>
+
+          <input
+            class="progress"
+            id="progress"
+            type="range"
+            min="0"
+            max="100"
+            step="0.1"
+            value="0"
+            aria-label="Track progress"
+          >
+
+          <div class="track-times">
+            <span id="currentTime">0:00</span>
+            <span id="duration">0:00</span>
+          </div>
+
+          <div class="music-actions">
+            <button class="icon-btn" id="chooseMusic" title="Choose music">＋</button>
+            <button class="icon-btn" id="previous" title="Restart track">⏮</button>
+            <button class="icon-btn main" id="play" title="Play or pause">▶</button>
+            <button class="icon-btn" id="next" title="Choose another track">⏭</button>
+          </div>
+
+          <div class="music-volume">
+            <span id="volumeIcon">🔊</span>
+            <input id="musicVolume" type="range" min="0" max="100" value="60"
+              aria-label="Music player volume">
+            <span id="musicVolumeText">60%</span>
+          </div>
+
+          <input id="filePicker" type="file" accept="audio/*" hidden>
+        </div>
+      </section>
+
+      <!-- PERFORMANCE -->
+      <section class="page" id="performance">
+        <div class="card">
+          <div class="card-title">Desktop Performance</div>
+
+          <div class="metric">
+            <div class="metric-head">
+              <span>CPU</span><span id="cpuText">Loading…</span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="cpuBar"></div></div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-head">
+              <span>RAM</span><span id="ramText">Loading…</span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="ramBar"></div></div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-head">
+              <span>GPU</span><span id="gpuText">Unavailable</span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="gpuBar"></div></div>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-label">BATTERY</div>
+            <div class="stat-value" id="batteryText">Checking…</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">POWER</div>
+            <div class="stat-value" id="powerText">Checking…</div>
+          </div>
+        </div>
+
+        <div class="status" id="performanceStatus">
+          Reading Windows performance information…
+        </div>
+      </section>
+
+      <!-- SYSTEM CONTROLS -->
+      <section class="page" id="controls">
+        <div class="control-grid">
+          <button class="control" id="wifi" type="button">
+            <span class="control-icon">⌁</span>
+            <span class="control-name">Wi-Fi</span>
+            <div class="control-state" id="wifiState">Checking…</div>
+            <div class="control-detail" id="wifiName">Not connected</div>
+          </button>
+
+          <button class="control" id="bluetooth" type="button">
+            <span class="control-icon">ᛒ</span>
+            <span class="control-name">Bluetooth</span>
+            <div class="control-state" id="bluetoothState">Checking…</div>
+            <div class="control-detail" id="bluetoothName">No device detected</div>
+          </button>
+        </div>
+
+        <div class="card system-audio">
+          <div class="card-title">Windows System Volume</div>
+
+          <div class="slider-row">
+            <span id="systemVolumeIcon">🔊</span>
+            <input id="systemVolume" type="range" min="0" max="100"
+              value="50" aria-label="Windows system volume">
+            <span id="systemVolumeText">--%</span>
+          </div>
+
+          <div class="slider-row" style="margin-top: 12px;">
+            <span id="brightnessIcon">☀</span>
+            <input id="displayBrightness" type="range" min="0" max="100"
+              value="50" aria-label="Display brightness">
+            <span id="displayBrightnessText">--%</span>
+          </div>
+          
+          <button class="control compact" id="systemMute" type="button">
+            <span class="control-icon">🔇</span>
+            <span class="control-name">System Mute</span>
+            <div class="control-state" id="systemMuteState">Checking…</div>
+          </button>
+
+
+          <button class="control compact" id="openWifiSettings" type="button">
+            <span class="control-icon">⚙</span>
+            <span class="control-name">Connection Settings</span>
+            <div class="control-state">Open Windows settings</div>
+          </button>
+        </div>
+
+        <div class="status" id="controlStatus">
+          System controls connect to Windows through Electron.
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

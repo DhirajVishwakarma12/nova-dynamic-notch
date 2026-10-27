@@ -1,0 +1,48 @@
+{
+  "name": "nova-dynamic-notch",
+  "version": "1.0.0",
+  "description": "Windows Dynamic Notch built with Electron",
+  "main": "electron-main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check electron-main.js && node --check connections.cjs && node --check preload.cjs && node --check script.js && node --check test/connections.test.cjs",
+    "test": "node --test",
+    "dist": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.nova.dynamicnotch",
+    "productName": "Nova Dynamic Notch",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron-main.js",
+      "connections.cjs",
+      "preload.cjs",
+      "index.html",
+      "script.js",
+      "style.css",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Nova Dynamic Notch",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
